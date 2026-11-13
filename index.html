@@ -1986,7 +1986,7 @@ function ULW(k){const w0=META.w0||THEME,o=['travel','star','flower'].filter(w=>w
 function ulName(k){return k[0]==='w'?T('th_'+ULW(k)):T(UNLT[k])}
 function WOK(th){if(!META.fgDone||!META.w0||th===META.w0)return true;return (th===ULW('w2')&&UNL('w2'))||(th===ULW('w3')&&UNL('w3'))}
 function addD(k,n){const [y,m,d]=k.split('-');return dkey(new Date(+y,+m-1,+d+n))}
-function ULN(){if(META.fgDone&&!META.w0){META.w0=THEME;saveMeta()}if(META.ul==null){const vet=(META.unl||[]).includes('stat')||(META.total||0)>=3||(META.days||[]).length>=2;META.ul=vet?ULSEQ.length:0;if(vet)Object.assign(META,{fgDone:1,tutDone:1,tourDone:1,guided:1,arr1:1,uld:1,ulr:1,ulv:3});META.ulDay=dkey();saveMeta()}if(!META.ulv){if(META.ul>=5)META.ul=ULSEQ.length;META.ulv=2}if(META.ulv===2){if(META.ul===2)META.ulx=Object.assign({},META.ulx||{},{jar:1});META.ulv=3;saveMeta()}return META.ul}
+function ULN(){if(!READY)return META.ul||0;if(META.fgDone&&!META.w0){META.w0=THEME;saveMeta()}if(META.ul==null){const vet=(META.unl||[]).includes('stat')||(META.total||0)>=3||(META.days||[]).length>=2;META.ul=vet?ULSEQ.length:0;if(vet)Object.assign(META,{fgDone:1,tutDone:1,tourDone:1,guided:1,arr1:1,uld:1,ulr:1,ulv:3});META.ulDay=dkey();saveMeta()}if(!META.ulv){if(META.ul>=5)META.ul=ULSEQ.length;META.ulv=2}if(META.ulv===2){if(META.ul===2)META.ulx=Object.assign({},META.ulx||{},{jar:1});META.ulv=3;saveMeta()}return META.ul}
 function UNL(k){const i=ULSEQ.indexOf(k);return i<0||i<ULN()||!!(META.ulx||{})[k]}
 function unlCheck(){const n0=ULN();let n=n0;
  if(n===0&&META.tourDone&&!document.getElementById('tour')&&Date.now()-(META.tourAt||0)>=180000)n=1;
