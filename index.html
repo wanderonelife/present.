@@ -1875,7 +1875,7 @@ function drawBat(cv,n){const x=cv.getContext('2d');cv.width=15;cv.height=8;x.fil
 function maxEn(){const b=D().check?D().check.bat:2;return b<=2?1:b===3?2:3}
 function seasonNow(){const m=new Date().getMonth()+1;return m>=3&&m<=5?'sp':m>=6&&m<=8?'su':m>=9&&m<=11?'au':'wi'}
 function candidates(exclude){const s=slotNow(),day=D(),me=maxEn(),sn=seasonNow(),ex=new Set([...day.shards.map(x=>x.id),...META.missions.map(m=>m.id),...(exclude||[])]);
- const ok=a=>a.en<=me&&!ex.has(a.id)&&!PDEL.has(a.id)&&(!a.w||a.w===THEME)&&!META.hidden[a.id]&&(!a.ss||a.ss===sn)&&(!META.onlyNew||!META.found[a.id]);
+ const ok=a=>a.en<=me&&!ex.has(a.id)&&!PDEL.has(a.id)&&!(a.jk&&(META.dn||0)<6)&&(!a.w||a.w===THEME)&&!META.hidden[a.id]&&(!a.ss||a.ss===sn)&&(!META.onlyNew||!META.found[a.id]);
  const ALL=A.concat(Object.values(FAVMAP()),Object.values(PASTMAP()));let pool=ALL.filter(a=>ok(a)&&fitsTime(a,s));if(pool.length<3)pool=ALL.filter(ok);return pool}
 function pickW(arr){const day=D(),w=arr.map(a=>(PW[a.id]||1)*Math.max(.3,1+(META.score[a.id]||0)*.6)*(day.seen[a.id]?.5:1)*(a.fav||a.past?2:1)),t=w.reduce((p,q)=>p+q,0);let r=Math.random()*t;for(let i=0;i<arr.length;i++){r-=w[i];if(r<=0)return arr[i]}return arr[arr.length-1]}
 function likedYesterday(){const ks=Object.keys(DAYS).filter(k=>k<dkey()).sort().reverse().slice(0,3);for(const k of ks){const g=(DAYS[k].shards||[]).filter(x=>x.fb==='good'&&MA(x.id)&&!String(x.id).startsWith('sos'));if(g.length)return g[g.length-1].id}return null}
